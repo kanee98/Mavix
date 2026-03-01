@@ -27,13 +27,13 @@ export function AboutSection() {
             className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold mb-6"
           >
             <span className="gradient-text">Mavix</span> — Where Innovation
-            Meets Impact
+            Meets Impact in Sri Lanka
           </h2>
           <p className="text-gray-400 text-lg leading-relaxed mb-8">
-            We are not just another agency. We are architects of digital
-            experiences that scale, convert, and inspire. Our mission is to
-            empower brands with AI-driven strategies, creative excellence, and
-            measurable results.
+            Based in Sri Lanka, we are architects of digital experiences that
+            scale, convert, and inspire. Our mission is to empower Sri Lankan
+            brands—and those going global—with AI-driven strategies, creative
+            excellence, and measurable results.
           </p>
         </motion.div>
 
@@ -46,17 +46,17 @@ export function AboutSection() {
           {[
             {
               title: 'Mission',
-              desc: 'To deliver marvelous, infinite-scale digital experiences that drive growth and loyalty.',
+              desc: 'To deliver marvelous, infinite-scale digital experiences that drive growth for Sri Lankan businesses and beyond.',
               icon: '🎯',
             },
             {
               title: 'Vision',
-              desc: 'A world where every brand can leverage AI and creativity to connect meaningfully with audiences.',
+              desc: 'A Sri Lanka where every brand can leverage AI and creativity to connect meaningfully with local and global audiences.',
               icon: '🔮',
             },
             {
               title: 'Innovation',
-              desc: 'We constantly evolve with cutting-edge tech, from AI automation to immersive web experiences.',
+              desc: 'We constantly evolve with cutting-edge tech—from AI automation to immersive web experiences—tailored for the Sri Lankan market.',
               icon: '⚡',
             },
           ].map((item, i) => (
@@ -65,9 +65,12 @@ export function AboutSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.1 * i }}
-              className="glass rounded-2xl p-8 hover:border-cyan-500/30 transition-colors"
+              className="glass rounded-2xl p-8 hover:border-cyan-500/30 transition-colors flex flex-col items-center text-center"
             >
-              <span className="text-4xl mb-4 block" aria-hidden="true">
+              <span
+                className="text-4xl mb-4"
+                aria-hidden="true"
+              >
                 {item.icon}
               </span>
               <h3 className="font-heading text-xl font-semibold text-white mb-3">

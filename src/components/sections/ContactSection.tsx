@@ -29,7 +29,25 @@ export function ContactSection() {
             Get in <span className="gradient-text">Touch</span>
           </h2>
           <p className="text-gray-400">
-            Ready to create something marvelous? Let us know.
+            Ready to create something marvelous? Get in touch—we&apos;re here for Sri Lankan businesses and beyond.
+          </p>
+          <p className="text-gray-400 text-sm mt-2">
+            Prefer to call or message?{' '}
+            <a
+              href="tel:+94714074994"
+              className="text-cyan-400 hover:text-cyan-300 font-medium"
+            >
+              +94 71 407 4994
+            </a>
+            {' · '}
+            <a
+              href="https://web.facebook.com/MAVIXLk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cyan-400 hover:text-cyan-300 font-medium"
+            >
+              Message us on Facebook
+            </a>
           </p>
         </motion.div>
 

@@ -12,20 +12,21 @@ import { ScrollProgress } from '@/components/ui/ScrollProgress';
 import { AppFooter } from '@/components/AppFooter';
 
 export const metadata: Metadata = {
-  title: 'Mavix | Marvelous Infinite Experience — Digital Marketing Agency',
+  title: 'Mavix | Marvelous Infinite Experience — Digital Marketing Agency Sri Lanka',
   description:
-    'Mavix is a cutting-edge digital marketing agency delivering AI-driven performance marketing, branding, SEO, and web development. Marvelous Infinite Experience.',
+    'Mavix is Sri Lanka\'s digital marketing agency delivering AI-driven performance marketing, branding, SEO, and web development. Based in Sri Lanka. Marvelous Infinite Experience.',
   keywords: [
-    'digital marketing',
+    'digital marketing Sri Lanka',
     'performance marketing',
-    'SEO',
+    'SEO Sri Lanka',
     'branding',
     'AI marketing',
     'Mavix',
+    'Colombo',
   ],
   openGraph: {
-    title: 'Mavix | Marvelous Infinite Experience',
-    description: 'Cutting-edge digital marketing agency. AI-driven strategies.',
+    title: 'Mavix | Marvelous Infinite Experience — Sri Lanka',
+    description: 'Sri Lanka\'s cutting-edge digital marketing agency. AI-driven strategies.',
   },
 };
 

@@ -61,7 +61,7 @@ export function ServicesSection() {
             Our <span className="gradient-text">Services</span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            End-to-end digital solutions designed for growth and scale.
+            End-to-end digital solutions for Sri Lankan businesses—designed for growth and scale.
           </p>
         </motion.div>
 
@@ -73,7 +73,7 @@ export function ServicesSection() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.05 * i }}
               whileHover={{ y: -6, transition: { duration: 0.2 } }}
-              className="group glass rounded-2xl p-8 hover:border-cyan-500/30 hover:shadow-glow-cyan/20 transition-all cursor-default"
+              className="group glass rounded-2xl p-8 hover:border-cyan-500/30 hover:shadow-glow-cyan/20 transition-all cursor-default items-center text-center"
             >
               <span
                 className="text-4xl mb-4 block transform group-hover:scale-110 transition-transform"

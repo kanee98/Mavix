@@ -72,7 +72,7 @@ export function WhyChooseSection() {
             Why Choose <span className="gradient-text">Mavix</span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            Numbers that speak. Experience that delivers.
+            Trusted by brands across Sri Lanka. Numbers that speak—experience that delivers.
           </p>
         </motion.div>
 

@@ -6,21 +6,21 @@ import { useRef, useState, useEffect } from 'react';
 const testimonials = [
   {
     quote:
-      'Mavix transformed our digital presence. ROI exceeded our expectations within the first quarter.',
-    author: 'Sarah Chen',
-    role: 'CMO, TechFlow',
+      'Mavix transformed our digital presence in Sri Lanka. ROI exceeded our expectations within the first quarter.',
+    author: 'Nadeesha Perera',
+    role: 'Marketing Head, Colombo Retail',
   },
   {
     quote:
-      'Their AI-driven approach to marketing automation saved us countless hours while boosting conversions.',
-    author: 'James Rivera',
-    role: 'Founder, ScaleUp',
+      'Their AI-driven approach to marketing automation saved us countless hours while boosting conversions. A true partner for Sri Lankan businesses.',
+    author: 'Ruvin Fernando',
+    role: 'Founder, ScaleUp Lanka',
   },
   {
     quote:
-      'Best agency we have worked with. Creative, data-savvy, and truly invested in our success.',
-    author: 'Emma Watson',
-    role: 'Head of Growth, Luxe Brand',
+      'Best agency we have worked with. Creative, data-savvy, and truly invested in our success—highly recommend for anyone in Sri Lanka.',
+    author: 'Chamari Silva',
+    role: 'Head of Growth, Island Brands',
   },
 ];
 
@@ -57,7 +57,7 @@ export function TestimonialsSection() {
           >
             What <span className="gradient-text">Clients</span> Say
           </h2>
-          <p className="text-gray-400">Trusted by brands worldwide.</p>
+          <p className="text-gray-400">Trusted by brands across Sri Lanka and beyond.</p>
         </motion.div>
 
         <div className="relative min-h-[220px] flex items-center justify-center">

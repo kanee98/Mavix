@@ -50,8 +50,8 @@ export function HeroSection() {
           transition={{ duration: 0.6, delay: 0.25 }}
           className="max-w-2xl mx-auto text-gray-400 text-lg sm:text-xl mb-10"
         >
-          We are a cutting-edge digital marketing agency that blends AI, creativity,
-          and data to deliver extraordinary growth for brands worldwide.
+          Sri Lanka&apos;s digital marketing partner—blending AI, creativity, and data
+          to deliver extraordinary growth for brands across the island and beyond.
         </motion.p>
 
         <motion.div
