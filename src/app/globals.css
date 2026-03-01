@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-dark: #0A0A0F;
+  --accent-purple: #8B5CF6;
+  --accent-blue: #3B82F6;
+  --accent-cyan: #06B6D4;
+  --glass: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-[#0A0A0F] text-gray-100 antialiased;
+  background-color: var(--bg-dark);
+}
+
+/* Gradient text for Mavix */
+.gradient-text {
+  background: linear-gradient(
+    135deg,
+    #8B5CF6 0%,
+    #06B6D4 50%,
+    #3B82F6 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 4s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+}
+
+/* Glassmorphism */
+.glass {
+  @apply backdrop-blur-xl border border-white/10;
+  background: var(--glass);
+}
+
+/* Focus styles for accessibility */
+input:focus,
+textarea:focus,
+button:focus-visible {
+  @apply outline-none ring-2 ring-cyan-500/50 ring-offset-2 ring-offset-[#0A0A0F];
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
