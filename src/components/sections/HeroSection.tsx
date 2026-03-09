@@ -131,7 +131,7 @@ export function HeroSection() {
         className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_80%_20%,rgba(6,182,212,0.12),transparent_50%)]"
         aria-hidden
       />
-      <ParticleBackground ref={particlesRef} />
+      <ParticleBackground innerRef={particlesRef} />
 
       <div ref={contentRef} className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div
@@ -143,9 +143,9 @@ export function HeroSection() {
             <Image
               src="/images/logo.jpg"
               alt="Mavix"
-              width={88}
-              height={88}
-              className="rounded-2xl object-cover w-20 h-20 sm:w-22 sm:h-22"
+              width={112}
+              height={112}
+              className="rounded-2xl object-cover w-24 h-24 sm:w-28 sm:h-28"
             />
           </div>
         </div>
@@ -226,7 +226,7 @@ function ScrollIndicator({ className }: { className?: string }) {
   );
 }
 
-function ParticleBackground({ ref: refProp }: { ref?: React.RefObject<HTMLDivElement> }) {
+function ParticleBackground({ innerRef }: { innerRef?: React.RefObject<HTMLDivElement> }) {
   const particles = Array.from({ length: 40 }, (_, i) => ({
     id: i,
     x: Math.random() * 100,
@@ -237,7 +237,7 @@ function ParticleBackground({ ref: refProp }: { ref?: React.RefObject<HTMLDivEle
   }));
 
   return (
-    <div ref={refProp} className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div ref={innerRef} className="absolute inset-0 overflow-hidden pointer-events-none">
       {particles.map((p) => (
         <ParticleDot key={p.id} {...p} />
       ))}
