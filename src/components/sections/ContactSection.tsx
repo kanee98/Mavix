@@ -1,27 +1,61 @@
 'use client';
 
-import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { MagneticButton } from '@/components/ui/MagneticButton';
 
 export function ContactSection() {
   const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-80px' });
+  const headingRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
   const [focused, setFocused] = useState<string | null>(null);
+
+  useGSAP(
+    () => {
+      if (!ref.current) return;
+      if (headingRef.current) {
+        gsap.fromTo(
+          headingRef.current,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: headingRef.current, start: 'top 85%', toggleActions: 'play none none none' },
+          }
+        );
+      }
+      const rows = formRef.current?.querySelectorAll('.contact-row');
+      if (rows?.length) {
+        gsap.fromTo(
+          rows,
+          { opacity: 0, x: -24 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: 'power2.out',
+            scrollTrigger: { trigger: formRef.current, start: 'top 88%', toggleActions: 'play none none none' },
+          }
+        );
+      }
+    },
+    { scope: ref }
+  );
 
   return (
     <section
       id="contact"
       ref={ref}
-      className="relative py-24"
+      className="relative py-24 tech-grid"
       aria-labelledby="contact-heading"
     >
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
+        <div ref={headingRef} className="text-center mb-12">
           <h2
             id="contact-heading"
             className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold mb-4"
@@ -49,16 +83,14 @@ export function ContactSection() {
               Message us on Facebook
             </a>
           </p>
-        </motion.div>
+        </div>
 
-        <motion.form
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
+        <form
+          ref={formRef}
           className="glass rounded-2xl p-8 md:p-10 space-y-6"
           onSubmit={(e) => e.preventDefault()}
         >
-          <div>
+          <div className="contact-row">
             <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
               Name
             </label>
@@ -71,13 +103,13 @@ export function ContactSection() {
               onBlur={() => setFocused(null)}
               className={`w-full px-4 py-3 rounded-xl bg-white/5 border transition-all ${
                 focused === 'name'
-                  ? 'border-cyan-500/50 shadow-glow-cyan/20'
+                  ? 'border-cyan-500/50 shadow-glow-cyan-soft'
                   : 'border-white/10 hover:border-white/20'
               } text-white placeholder-gray-500`}
               placeholder="Your name"
             />
           </div>
-          <div>
+          <div className="contact-row">
             <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
               Email
             </label>
@@ -90,13 +122,13 @@ export function ContactSection() {
               onBlur={() => setFocused(null)}
               className={`w-full px-4 py-3 rounded-xl bg-white/5 border transition-all ${
                 focused === 'email'
-                  ? 'border-cyan-500/50 shadow-glow-cyan/20'
+                  ? 'border-cyan-500/50 shadow-glow-cyan-soft'
                   : 'border-white/10 hover:border-white/20'
               } text-white placeholder-gray-500`}
               placeholder="you@company.com"
             />
           </div>
-          <div>
+          <div className="contact-row">
             <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
               Message
             </label>
@@ -109,21 +141,26 @@ export function ContactSection() {
               onBlur={() => setFocused(null)}
               className={`w-full px-4 py-3 rounded-xl bg-white/5 border transition-all resize-none ${
                 focused === 'message'
-                  ? 'border-cyan-500/50 shadow-glow-cyan/20'
+                  ? 'border-cyan-500/50 shadow-glow-cyan-soft'
                   : 'border-white/10 hover:border-white/20'
               } text-white placeholder-gray-500`}
               placeholder="Tell us about your project..."
             />
           </div>
-          <motion.button
-            type="submit"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="w-full py-4 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-600 text-white font-semibold hover:shadow-glow transition-all"
-          >
-            Send Message
-          </motion.button>
-        </motion.form>
+          <div className="contact-row pt-2">
+            <MagneticButton strength={0.12}>
+              <button
+                type="submit"
+                className="w-full max-w-xs mx-auto flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-600 text-white font-semibold text-sm tracking-wide hover:shadow-glow transition-all duration-200 hover:opacity-95 active:scale-[0.98] border border-white/10"
+              >
+                <span>Send Message</span>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </button>
+            </MagneticButton>
+          </div>
+        </form>
       </div>
     </section>
   );

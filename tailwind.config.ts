@@ -49,6 +49,7 @@ const config: Config = {
       boxShadow: {
         glow: '0 0 40px -10px rgba(139, 92, 246, 0.4)',
         'glow-cyan': '0 0 40px -10px rgba(6, 182, 212, 0.4)',
+        'glow-cyan-soft': '0 0 30px -8px rgba(6, 182, 212, 0.25)',
       },
     },
   },

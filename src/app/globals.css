@@ -4,11 +4,14 @@
 
 :root {
   --bg-dark: #0A0A0F;
+  --bg-darker: #050508;
   --accent-purple: #8B5CF6;
   --accent-blue: #3B82F6;
   --accent-cyan: #06B6D4;
   --glass: rgba(255, 255, 255, 0.03);
   --glass-border: rgba(255, 255, 255, 0.08);
+  --glow-cyan: rgba(6, 182, 212, 0.4);
+  --glow-purple: rgba(139, 92, 246, 0.4);
 }
 
 html {
@@ -16,8 +19,27 @@ html {
 }
 
 body {
-  @apply bg-[#0A0A0F] text-gray-100 antialiased;
+  @apply text-gray-100 antialiased;
   background-color: var(--bg-dark);
+  overflow-x: hidden;
+}
+
+/* Tech grid overlay - subtle background */
+.tech-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Noise texture for depth */
+.noise::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
 }
 
 /* Gradient text for Mavix */
@@ -36,18 +58,36 @@ body {
 }
 
 @keyframes gradient-shift {
-  0%, 100% {
-    background-position: 0% center;
-  }
-  50% {
-    background-position: 100% center;
-  }
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
 }
 
 /* Glassmorphism */
 .glass {
   @apply backdrop-blur-xl border border-white/10;
   background: var(--glass);
+}
+
+/* Glow border on hover */
+.glow-border {
+  position: relative;
+}
+.glow-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.glow-border:hover::before {
+  opacity: 0.6;
 }
 
 /* Focus styles for accessibility */
@@ -66,4 +106,21 @@ button:focus-visible {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Line reveal for headings */
+.char-wrap {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+.char-wrap .char {
+  display: inline-block;
+  transform: translateY(100%);
+}
+
+/* Stagger children for GSAP */
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(40px);
 }

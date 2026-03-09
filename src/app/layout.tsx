@@ -7,6 +7,7 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
   variable: '--font-heading',
 });
+import { GSAPInit } from '@/components/GSAPInit';
 import { CursorGlow } from '@/components/ui/CursorGlow';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
 import { AppFooter } from '@/components/AppFooter';
@@ -40,6 +41,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${spaceGrotesk.variable} font-sans min-h-screen flex flex-col`}
       >
+        <GSAPInit />
         <ScrollProgress />
         <CursorGlow />
         {children}

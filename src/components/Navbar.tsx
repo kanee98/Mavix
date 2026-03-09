@@ -1,13 +1,29 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const navLinksRef = useRef<HTMLUListElement>(null);
+
+  useGSAP(
+    () => {
+      if (!headerRef.current) return;
+      gsap.fromTo(
+        headerRef.current,
+        { y: -100, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out', delay: 0.2 }
+      );
+    },
+    { scope: headerRef }
+  );
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -25,10 +41,8 @@ export function Navbar() {
   ];
 
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
+    <header
+      ref={headerRef}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? 'glass py-3' : 'py-5 bg-transparent'
       }`}
@@ -37,28 +51,23 @@ export function Navbar() {
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between"
         aria-label="Main navigation"
       >
-        <Link href="/" className="flex items-center gap-2 shrink-0">
+        <Link href="/" className="flex items-center gap-2 shrink-0 group">
           <Image
             src="/images/logo.jpg"
             alt="Mavix logo"
             width={40}
             height={40}
-            className="rounded-lg object-cover"
+            className="rounded-lg object-cover transition-transform duration-300 group-hover:scale-105"
           />
           <span className="font-heading text-xl font-bold gradient-text">
             Mavix
           </span>
         </Link>
 
-        <ul className="hidden md:flex items-center gap-8">
+        <ul ref={navLinksRef} className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <li key={link.href}>
-              <Link
-                href={link.href}
-                className="text-gray-300 hover:text-cyan-400 transition-colors text-sm font-medium"
-              >
-                {link.label}
-              </Link>
+              <NavLink href={link.href} label={link.label} />
             </li>
           ))}
         </ul>
@@ -122,6 +131,42 @@ export function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
+  );
+}
+
+function NavLink({ href, label }: { href: string; label: string }) {
+  const linkRef = useRef<HTMLAnchorElement>(null);
+  const lineRef = useRef<HTMLSpanElement>(null);
+
+  useGSAP(
+    () => {
+      const link = linkRef.current;
+      const line = lineRef.current;
+      if (!link || !line) return;
+
+      link.addEventListener('mouseenter', () => {
+        gsap.to(line, { scaleX: 1, duration: 0.3, ease: 'power2.out' });
+      });
+      link.addEventListener('mouseleave', () => {
+        gsap.to(line, { scaleX: 0, duration: 0.25, ease: 'power2.in', transformOrigin: 'left' });
+      });
+    },
+    { scope: linkRef }
+  );
+
+  return (
+    <Link
+      ref={linkRef}
+      href={href}
+      className="relative text-gray-300 hover:text-cyan-400 transition-colors text-sm font-medium py-1"
+    >
+      {label}
+      <span
+        ref={lineRef}
+        className="absolute bottom-0 left-0 w-full h-px bg-cyan-400 scale-x-0 origin-left"
+        aria-hidden
+      />
+    </Link>
   );
 }

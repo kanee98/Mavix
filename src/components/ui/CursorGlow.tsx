@@ -1,58 +1,58 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { useRef, useEffect } from 'react';
+import gsap from 'gsap';
 
 export function CursorGlow() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isVisible, setIsVisible] = useState(false);
+  const glowRef = useRef<HTMLDivElement>(null);
+  const visibleRef = useRef(false);
 
   useEffect(() => {
-    const handleMove = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-      setIsVisible(true);
-    };
-    const handleLeave = () => setIsVisible(false);
+    const glow = glowRef.current;
+    if (!glow || typeof window === 'undefined') return;
 
-    window.addEventListener('mousemove', handleMove);
-    window.addEventListener('mouseleave', handleLeave);
+    const pos = { x: 0, y: 0 };
+    const quickX = gsap.quickTo(glow, 'x', { duration: 0.4, ease: 'power2.out' });
+    const quickY = gsap.quickTo(glow, 'y', { duration: 0.4, ease: 'power2.out' });
+    const quickOpacity = gsap.quickTo(glow, 'opacity', { duration: 0.25 });
+
+    const onMove = (e: MouseEvent) => {
+      pos.x = e.clientX - 150;
+      pos.y = e.clientY - 150;
+      visibleRef.current = true;
+    };
+    const onLeave = () => {
+      visibleRef.current = false;
+    };
+
+    function update() {
+      quickX(pos.x);
+      quickY(pos.y);
+      quickOpacity(visibleRef.current ? 1 : 0);
+    }
+
+    gsap.ticker.add(update);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseleave', onLeave);
+
     return () => {
-      window.removeEventListener('mousemove', handleMove);
-      window.removeEventListener('mouseleave', handleLeave);
+      gsap.ticker.remove(update);
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseleave', onLeave);
     };
   }, []);
 
-  if (typeof window === 'undefined') return null;
-
   return (
-    <motion.div
-      className="pointer-events-none fixed z-[99] hidden md:block"
-      initial={{ opacity: 0 }}
-      animate={{
-        x: position.x,
-        y: position.y,
-        opacity: isVisible ? 1 : 0,
-      }}
-      transition={{
-        type: 'spring',
-        stiffness: 500,
-        damping: 28,
-        mass: 0.5,
-      }}
+    <div
+      ref={glowRef}
+      className="pointer-events-none fixed z-[99] hidden md:block w-[300px] h-[300px] rounded-full bg-cyan-500/20"
       style={{
         left: 0,
         top: 0,
-        width: 300,
-        height: 300,
-        marginLeft: -150,
-        marginTop: -150,
+        filter: 'blur(60px)',
+        opacity: 0,
       }}
       aria-hidden="true"
-    >
-      <div
-        className="absolute inset-0 rounded-full bg-cyan-500/20 blur-3xl"
-        style={{ filter: 'blur(60px)' }}
-      />
-    </motion.div>
+    />
   );
 }
