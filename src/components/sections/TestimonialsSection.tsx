@@ -22,7 +22,7 @@ const testimonials = [
     quote:
       'Best agency we have worked with. Creative, data-savvy, and truly invested in our success—highly recommend for anyone in Sri Lanka.',
     author: 'Chamari Silva',
-    role: 'Head of Growth, Island Brands',
+    role: 'Head of Growth, Ape Gewaththa',
   },
 ];
 

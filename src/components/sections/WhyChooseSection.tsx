@@ -7,7 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { TiltCard } from '@/components/ui/TiltCard';
 
 const stats = [
-  { value: 150, suffix: '+', label: 'Projects Delivered' },
+  { value: 55, suffix: '+', label: 'Projects Delivered' },
   { value: 98, suffix: '%', label: 'Client Satisfaction' },
   { value: 5, suffix: 'x', label: 'Average ROAS' },
   { value: 24, suffix: '/7', label: 'Support' },

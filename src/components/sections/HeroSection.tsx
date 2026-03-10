@@ -182,10 +182,10 @@ export function HeroSection() {
           </MagneticButton>
           <MagneticButton strength={0.2}>
             <Link
-              href="#portfolio"
+              href="#services"
               className="inline-block px-8 py-4 rounded-full glass text-gray-200 font-semibold hover:border-cyan-500/50 hover:text-cyan-400 transition-all"
             >
-              View Our Work
+              Explore Our Services
             </Link>
           </MagneticButton>
         </div>
