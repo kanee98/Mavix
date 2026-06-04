@@ -1,7 +1,6 @@
 'use client';
 
 import { FormEvent, useRef, useState } from 'react';
-import emailjs from '@emailjs/browser';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { MagneticButton } from '@/components/ui/MagneticButton';
@@ -12,12 +11,6 @@ const fields = [
   { id: 'phone', label: 'Phone number', type: 'tel', placeholder: '+94 77 123 4567', autoComplete: 'tel' },
   { id: 'goal', label: 'Growth goal', type: 'text', placeholder: 'More leads, better brand, higher ROAS...', autoComplete: 'off' },
 ];
-
-const emailConfig = {
-  serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-  templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-  publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
-};
 
 export function ContactSection() {
   const ref = useRef<HTMLElement>(null);
@@ -47,27 +40,33 @@ export function ContactSection() {
 
     if (!formRef.current) return;
 
-    if (!emailConfig.serviceId || !emailConfig.templateId || !emailConfig.publicKey) {
-      setStatus('error');
-      setStatusMessage('Email service is not configured yet. Please contact Mavix through WhatsApp or Facebook.');
-      return;
-    }
-
     setStatus('sending');
     setStatusMessage('Sending your consultation request...');
 
     try {
-      await emailjs.sendForm(
-        emailConfig.serviceId,
-        emailConfig.templateId,
-        formRef.current,
-        { publicKey: emailConfig.publicKey }
-      );
+      const formData = new FormData(formRef.current);
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.get('name'),
+          email: formData.get('email'),
+          phone: formData.get('phone'),
+          goal: formData.get('goal'),
+          message: formData.get('message'),
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result?.message || 'Unable to submit request.');
+      }
 
       formRef.current.reset();
       setFocused(null);
       setStatus('success');
-      setStatusMessage('Thank you. Your consultation request has been sent to Mavix.');
+      setStatusMessage(result?.message || 'Thank you. Your consultation request has been sent to Mavix.');
     } catch {
       setStatus('error');
       setStatusMessage('Sorry, your request could not be sent. Please contact us through WhatsApp or Facebook.');
@@ -121,10 +120,6 @@ export function ContactSection() {
         </div>
 
         <form ref={formRef} className="contact-reveal premium-card rounded-[2.4rem] p-7 md:p-10" onSubmit={handleSubmit}>
-          <input type="hidden" name="to_email" value="hello@mavix.lk" />
-          <input type="hidden" name="subject" value="Website Inquiry from Mavix Website" />
-          <input type="hidden" name="source" value="Mavix website inquiry form" />
-
           <div className="grid gap-5">
             {fields.map((field) => (
               <div key={field.id}>
