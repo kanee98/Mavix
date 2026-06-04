@@ -39,7 +39,7 @@ export function Navbar() {
     <header ref={headerRef} className="fixed left-0 right-0 top-0 z-50 px-3 pt-3 opacity-0 sm:px-5">
       <nav className={`mx-auto flex max-w-7xl items-center justify-between rounded-full border px-4 py-3 transition-all duration-300 ${scrolled ? 'border-white/15 bg-[#05070b]/78 shadow-[0_18px_60px_rgba(0,0,0,0.28)] backdrop-blur-2xl' : 'border-white/10 bg-white/[0.035] backdrop-blur-xl'}`} aria-label="Main navigation">
         <Link href="/" className="group flex shrink-0 items-center gap-3">
-          <Image src="/images/logo.jpg" alt="Mavix logo" width={42} height={42} className="h-10 w-10 rounded-2xl border border-white/15 object-cover transition-transform duration-300 group-hover:scale-105" />
+          <Image src="/images/logo_no_bg.png" alt="Mavix logo" width={52} height={52} className="h-11 w-11 object-contain drop-shadow-[0_10px_24px_rgba(43,224,255,0.18)] transition-transform duration-300 group-hover:scale-105" />
           <div className="leading-none">
             <span className="block text-lg font-black uppercase tracking-[-0.03em] text-white">Mavix</span>
             <span className="hidden text-[10px] font-bold uppercase tracking-[0.26em] text-cyan-200/70 sm:block">Growth systems</span>

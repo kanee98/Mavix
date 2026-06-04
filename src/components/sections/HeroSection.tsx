@@ -71,8 +71,8 @@ export function HeroSection() {
         <div>
           <div ref={logoRef} className="mb-7 flex items-center gap-4 opacity-0">
             <div className="relative">
-              <div className="absolute -inset-3 rounded-3xl bg-cyan-300/20 blur-xl" />
-              <Image src="/images/logo.jpg" alt="Mavix" width={72} height={72} priority className="relative h-16 w-16 rounded-2xl border border-white/20 object-cover shadow-2xl" />
+              <div className="absolute -inset-4 rounded-full bg-cyan-300/20 blur-xl" />
+              <Image src="/images/logo_no_bg.png" alt="Mavix" width={88} height={88} priority className="relative h-20 w-20 object-contain drop-shadow-[0_18px_40px_rgba(43,224,255,0.24)]" />
             </div>
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.45em] text-cyan-200/80">Mavix</p>
