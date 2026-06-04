@@ -6,10 +6,10 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const stats = [
-  { value: 55, suffix: '+', label: 'Projects delivered', note: 'web, campaigns, branding' },
-  { value: 98, suffix: '%', label: 'Client satisfaction', note: 'clear communication loops' },
-  { value: 5, suffix: 'x', label: 'ROAS ambition', note: 'tracked campaign targets' },
-  { value: 24, suffix: '/7', label: 'Growth visibility', note: 'dashboards and support' },
+  { value: 55, suffix: '+', label: 'Projects Completed', note: 'Web, branding, and campaigns' },
+  { value: 98, suffix: '%', label: 'Client Satisfaction', note: 'Trusted delivery and support' },
+  { value: 5, suffix: 'x', label: 'ROAS Potential', note: 'Performance-focused campaigns' },
+  { value: 24, suffix: '/7', label: 'Support Access', note: 'Ongoing guidance when needed' },
 ];
 
 const process = ['Audit', 'Position', 'Launch', 'Measure', 'Scale'];
@@ -54,9 +54,9 @@ export function WhyChooseSection() {
       <div className="absolute right-0 top-10 h-96 w-96 rounded-full bg-amber-300/10 blur-[110px]" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="why-reveal mx-auto mb-14 max-w-3xl text-center">
-          <p className="mb-4 text-sm font-black uppercase tracking-[0.34em] text-cyan-200">Why Mavix</p>
+          <p className="mb-4 text-xs font-extrabold uppercase tracking-[0.32em] text-cyan-200">Why Mavix</p>
           <h2 id="why-heading" className="font-heading text-3xl font-extrabold leading-tight tracking-[-0.04em] sm:text-4xl md:text-5xl">
-            Your website should feel like <span className="hot-gradient-text">proof</span>, not a brochure.
+            Digital marketing built for <span className="hot-gradient-text">clarity, credibility, and growth.</span>
           </h2>
         </div>
 
@@ -64,8 +64,8 @@ export function WhyChooseSection() {
           {stats.map((stat) => (
             <article key={stat.label} className="why-reveal premium-card rounded-[2rem] p-6 text-center">
               <p className="gradient-text text-3xl font-extrabold md:text-4xl"><AnimatedCounter value={stat.value} suffix={stat.suffix} inView={inView} /></p>
-              <h3 className="mt-3 text-base font-black text-white">{stat.label}</h3>
-              <p className="mt-2 text-sm text-slate-400">{stat.note}</p>
+              <h3 className="mt-3 text-sm font-extrabold leading-snug tracking-[-0.01em] text-white sm:text-base">{stat.label}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-400">{stat.note}</p>
             </article>
           ))}
         </div>

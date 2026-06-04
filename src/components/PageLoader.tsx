@@ -25,19 +25,23 @@ export function PageLoader() {
           aria-label="Loading Mavix"
         >
           <div className="absolute inset-0 campaign-grid opacity-50" />
-          <motion.div
-            className="absolute left-1/2 top-1/2 h-[52vmin] w-[52vmin] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-300/20"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
-          >
-            <span className="absolute left-1/2 top-0 h-3 w-3 -translate-x-1/2 rounded-full bg-cyan-300 shadow-[0_0_30px_rgba(43,224,255,0.9)]" />
-            <span className="absolute bottom-8 right-7 h-2 w-2 rounded-full bg-amber-300 shadow-[0_0_24px_rgba(255,183,77,0.8)]" />
-          </motion.div>
-          <motion.div
-            className="absolute left-1/2 top-1/2 h-[36vmin] w-[36vmin] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-white/15"
-            animate={{ rotate: -360 }}
-            transition={{ duration: 14, repeat: Infinity, ease: 'linear' }}
-          />
+          <div className="pointer-events-none absolute inset-0 grid place-items-center">
+            <motion.div
+              className="relative h-[46vmin] w-[46vmin] max-h-[440px] max-w-[440px] rounded-full border border-cyan-300/20"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
+            >
+              <span className="absolute left-1/2 top-0 h-3 w-3 -translate-x-1/2 rounded-full bg-cyan-300 shadow-[0_0_30px_rgba(43,224,255,0.9)]" />
+              <span className="absolute bottom-8 right-7 h-2 w-2 rounded-full bg-amber-300 shadow-[0_0_24px_rgba(255,183,77,0.8)]" />
+            </motion.div>
+          </div>
+          <div className="pointer-events-none absolute inset-0 grid place-items-center">
+            <motion.div
+              className="h-[32vmin] w-[32vmin] max-h-[310px] max-w-[310px] rounded-full border border-dashed border-white/15"
+              animate={{ rotate: -360 }}
+              transition={{ duration: 14, repeat: Infinity, ease: 'linear' }}
+            />
+          </div>
           <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6 text-center">
             <motion.div
               initial={{ scale: 0.72, opacity: 0, filter: 'blur(12px)' }}

@@ -118,8 +118,6 @@ export function HeroSection() {
         </div>
 
         <div ref={panelRef} className="relative mx-auto w-full max-w-xl opacity-0">
-          <div className="absolute inset-8 rounded-full border border-cyan-200/20 orbital-ring" />
-          <div className="absolute inset-20 rounded-full border border-dashed border-amber-200/20 orbital-ring [animation-duration:32s] [animation-direction:reverse]" />
           <div className="premium-card scan-line relative min-h-[540px] rounded-[2.5rem] p-6 backdrop-blur-2xl sm:p-8">
             <div className="mb-6 flex items-center justify-between">
               <div>
@@ -129,9 +127,9 @@ export function HeroSection() {
               <span className="rounded-full border border-lime-200/30 bg-lime-300/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-lime-200">Active</span>
             </div>
 
-            <div className="relative mb-6 aspect-square rounded-full border border-white/10 bg-black/20 p-8">
-              <div className="absolute inset-8 rounded-full border border-cyan-200/20" />
-              <div className="absolute inset-20 rounded-full border border-amber-200/20" />
+            <div className="relative mb-6 grid aspect-square place-items-center rounded-full border border-white/10 bg-black/20 p-8">
+              <div className="absolute inset-8 rounded-full border border-cyan-200/20 orbital-ring" />
+              <div className="absolute inset-20 rounded-full border border-dashed border-amber-200/20 orbital-ring [animation-duration:32s] [animation-direction:reverse]" />
               <div className="absolute left-1/2 top-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-cyan-300 via-white to-lime-200 p-1 shadow-[0_0_70px_rgba(43,224,255,0.38)]">
                 <div className="flex h-full w-full items-center justify-center rounded-full bg-slate-950 text-center text-sm font-extrabold uppercase tracking-[0.18em] text-white">Growth<br />Core</div>
               </div>
