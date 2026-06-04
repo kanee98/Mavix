@@ -67,9 +67,13 @@ export function ContactSection() {
       setFocused(null);
       setStatus('success');
       setStatusMessage(result?.message || 'Thank you. Your consultation request has been sent to Mavix.');
-    } catch {
+    } catch (error) {
       setStatus('error');
-      setStatusMessage('Sorry, your request could not be sent. Please contact us through WhatsApp or Facebook.');
+      setStatusMessage(
+        error instanceof Error
+          ? error.message
+          : 'Sorry, your request could not be sent. Please contact us through WhatsApp or Facebook.'
+      );
     }
   }
 
