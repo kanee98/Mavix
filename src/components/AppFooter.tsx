@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 
 export function AppFooter() {
@@ -10,9 +11,18 @@ export function AppFooter() {
       <div className="absolute inset-0 campaign-grid opacity-25" />
       <div className="relative mx-auto flex max-w-7xl flex-col gap-8 px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <div>
-            <p className="text-3xl font-extrabold tracking-[-0.05em] text-white">Mavix</p>
-            <p className="mt-2 max-w-xl text-slate-400">Marvelous Infinite Experience for brands that need stronger digital presence, smarter campaigns, and measurable marketing performance.</p>
+          <div className="flex max-w-2xl items-start gap-4">
+            <Image
+              src="/images/logo_no_bg.png"
+              alt="Mavix logo"
+              width={72}
+              height={72}
+              className="mt-1 h-16 w-16 shrink-0 object-contain drop-shadow-[0_14px_30px_rgba(43,224,255,0.18)]"
+            />
+            <div>
+              <p className="text-3xl font-extrabold tracking-[-0.05em] text-white">Mavix</p>
+              <p className="mt-2 max-w-xl text-slate-400">Marvelous Infinite Experience for brands that need stronger digital presence, smarter campaigns, and measurable marketing performance.</p>
+            </div>
           </div>
           <div className="flex flex-wrap gap-3" aria-label="Mavix social links">
             <a
