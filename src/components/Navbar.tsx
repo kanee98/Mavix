@@ -56,8 +56,8 @@ export function Navbar() {
           ))}
         </ul>
 
-        <Link href="#contact" className="lift-link hidden rounded-full border border-cyan-200/40 bg-cyan-300 px-5 py-3 text-xs font-black uppercase tracking-[0.16em] text-slate-950 md:inline-flex">
-          Start
+        <Link href="#contact" className="lift-link hidden rounded-full border border-cyan-200/35 bg-cyan-300/95 px-5 py-3 text-xs font-extrabold uppercase tracking-[0.14em] text-slate-950 shadow-[0_14px_35px_rgba(43,224,255,0.16)] md:inline-flex">
+          Book Consultation
         </Link>
 
         <button type="button" className="rounded-full border border-white/10 bg-white/5 p-3 text-white md:hidden" onClick={() => setMobileOpen((open) => !open)} aria-expanded={mobileOpen} aria-label="Toggle menu">
@@ -77,6 +77,11 @@ export function Navbar() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link href="#contact" className="mt-2 block rounded-2xl bg-cyan-300 px-4 py-3 text-center text-sm font-extrabold uppercase tracking-[0.16em] text-slate-950" onClick={() => setMobileOpen(false)}>
+                  Book Consultation
+                </Link>
+              </li>
             </ul>
           </motion.div>
         ) : null}
