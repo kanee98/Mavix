@@ -4,116 +4,60 @@ import { useRef } from 'react';
 import Link from 'next/link';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { TiltCard } from '@/components/ui/TiltCard';
 
 const projects = [
-  {
-    title: 'TechFlow SaaS',
-    category: 'Performance Marketing',
-    description: '3x ROAS in 6 months with data-driven paid campaigns.',
-  },
-  {
-    title: 'Luxe Brand Co',
-    category: 'Branding & Social',
-    description: 'Full rebrand and social strategy that doubled engagement.',
-  },
-  {
-    title: 'HealthFirst',
-    category: 'SEO & Web',
-    description: 'Top 3 rankings and high-converting funnel design.',
-  },
+  { title: 'Retail Growth Sprint', category: 'Paid Ads + Landing Page', result: '3.4x ROAS', desc: 'A campaign funnel with sharper offers, retargeting, and conversion-focused page sections.' },
+  { title: 'Premium Brand Relaunch', category: 'Branding + Social', result: '2x engagement', desc: 'A new visual system, content rhythm, and trust-building story for a crowded market.' },
+  { title: 'Local Search Domination', category: 'SEO + Content', result: 'Top 3 rankings', desc: 'Keyword architecture, technical cleanup, and content clusters for consistent discovery.' },
 ];
 
 export function PortfolioSection() {
   const ref = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
-      if (!ref.current) return;
-      const heading = headingRef.current;
-      const items = gridRef.current?.children;
-      if (heading) {
-        gsap.fromTo(
-          heading,
-          { opacity: 0, y: 40 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: 'power3.out',
-            scrollTrigger: { trigger: heading, start: 'top 85%', toggleActions: 'play none none none' },
-          }
-        );
-      }
-      if (items?.length) {
-        gsap.fromTo(
-          items,
-          { opacity: 0, y: 60 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            stagger: 0.15,
-            ease: 'power3.out',
-            scrollTrigger: { trigger: gridRef.current, start: 'top 88%', toggleActions: 'play none none none' },
-          }
-        );
-      }
+      const items = ref.current?.querySelectorAll('.work-reveal');
+      if (!items?.length) return;
+      gsap.fromTo(items, { opacity: 0, y: 44 }, {
+        opacity: 1,
+        y: 0,
+        duration: 0.75,
+        stagger: 0.1,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: ref.current, start: 'top 75%', toggleActions: 'play none none none' },
+      });
     },
     { scope: ref }
   );
 
   return (
-    <section
-      id="portfolio"
-      ref={ref}
-      className="relative py-24"
-      aria-labelledby="portfolio-heading"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={headingRef} className="text-center mb-16">
-          <h2
-            id="portfolio-heading"
-            className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold mb-4"
-          >
-            Our <span className="gradient-text">Work</span>
-          </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            Selected projects that showcase our impact.
-          </p>
+    <section id="portfolio" ref={ref} className="relative overflow-hidden py-28" aria-labelledby="portfolio-heading">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(43,224,255,0.12),transparent_40rem)]" />
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="work-reveal mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div className="max-w-3xl">
+            <p className="mb-4 text-sm font-black uppercase tracking-[0.34em] text-amber-200">Selected impact</p>
+            <h2 id="portfolio-heading" className="font-heading text-3xl font-extrabold leading-tight tracking-[-0.04em] sm:text-4xl md:text-5xl">
+              Case-study energy, even before the call.
+            </h2>
+          </div>
+          <Link href="#contact" className="lift-link rounded-full border border-white/15 bg-white/8 px-6 py-3 text-sm font-black uppercase tracking-[0.16em] text-white backdrop-blur-xl">Request a plan</Link>
         </div>
 
-        <div ref={gridRef} className="grid md:grid-cols-3 gap-8">
-          {projects.map((project) => (
-            <TiltCard key={project.title} maxRotation={10}>
-              <div className="group relative rounded-2xl overflow-hidden glass hover:border-cyan-500/30 h-full">
-                <div className="aspect-video bg-gradient-to-br from-purple-900/40 to-cyan-900/40 flex items-center justify-center relative overflow-hidden">
-                  <span className="text-6xl opacity-50 group-hover:opacity-80 transition-opacity z-10">
-                    ✦
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="grid gap-6 lg:grid-cols-3">
+          {projects.map((project, index) => (
+            <TiltCard key={project.title} maxRotation={7} className="work-reveal h-full">
+              <article className="premium-card group relative flex h-full min-h-[430px] flex-col overflow-hidden rounded-[2.2rem] p-7">
+                <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-cyan-300/10 blur-[70px] transition-transform group-hover:scale-125" />
+                <p className="text-xs font-black uppercase tracking-[0.25em] text-cyan-100/80">{project.category}</p>
+                <div className="my-10 flex aspect-video items-center justify-center rounded-[1.6rem] border border-white/10 bg-black/30 scan-line">
+                  <span className="text-7xl font-black text-white/10">0{index + 1}</span>
                 </div>
-                <div className="p-6">
-                  <p className="text-cyan-400 text-sm font-medium mb-1">
-                    {project.category}
-                  </p>
-                  <h3 className="font-heading text-xl font-semibold text-white mb-2">
-                    {project.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm">{project.description}</p>
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
-                  <Link
-                    href="#contact"
-                    className="px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium border border-white/20 hover:bg-white/20 transition-colors"
-                  >
-                    View Case
-                  </Link>
-                </div>
-              </div>
+                <p className="hot-gradient-text text-4xl font-black">{project.result}</p>
+                <h3 className="mt-4 text-xl font-extrabold text-white">{project.title}</h3>
+                <p className="mt-3 text-slate-400">{project.desc}</p>
+              </article>
             </TiltCard>
           ))}
         </div>
@@ -121,3 +65,4 @@ export function PortfolioSection() {
     </section>
   );
 }
+

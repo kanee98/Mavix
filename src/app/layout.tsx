@@ -1,19 +1,27 @@
 import type { Metadata } from 'next';
-import { Inter, Space_Grotesk } from 'next/font/google';
+import { Manrope, Outfit } from 'next/font/google';
 import './globals.css';
-
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
-const spaceGrotesk = Space_Grotesk({
-  subsets: ['latin'],
-  variable: '--font-heading',
-});
 import { GSAPInit } from '@/components/GSAPInit';
 import { CursorGlow } from '@/components/ui/CursorGlow';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
 import { AppFooter } from '@/components/AppFooter';
+import { PageLoader } from '@/components/PageLoader';
+
+const manrope = Manrope({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
+});
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  weight: ['600', '700', '800', '900'],
+  variable: '--font-heading',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
-  title: 'Mavix | Marvelous Infinite Experience — Digital Marketing Agency Sri Lanka',
+  title: 'Mavix | Marvelous Infinite Experience - Digital Marketing Agency Sri Lanka',
   description:
     'Mavix is Sri Lanka\'s digital marketing agency delivering AI-driven performance marketing, branding, SEO, and web development. Based in Sri Lanka. Marvelous Infinite Experience.',
   keywords: [
@@ -26,7 +34,7 @@ export const metadata: Metadata = {
     'Colombo',
   ],
   openGraph: {
-    title: 'Mavix | Marvelous Infinite Experience — Sri Lanka',
+    title: 'Mavix | Marvelous Infinite Experience - Sri Lanka',
     description: 'Sri Lanka\'s cutting-edge digital marketing agency. AI-driven strategies.',
   },
 };
@@ -38,10 +46,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body
-        className={`${inter.variable} ${spaceGrotesk.variable} font-sans min-h-screen flex flex-col`}
-      >
+      <body className={`${manrope.variable} ${outfit.variable} font-sans min-h-screen flex flex-col`}>
         <GSAPInit />
+        <PageLoader />
         <ScrollProgress />
         <CursorGlow />
         {children}
@@ -50,3 +57,4 @@ export default function RootLayout({
     </html>
   );
 }
+

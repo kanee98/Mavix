@@ -1,92 +1,48 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { TiltCard } from '@/components/ui/TiltCard';
 
 const stats = [
-  { value: 55, suffix: '+', label: 'Projects Delivered' },
-  { value: 98, suffix: '%', label: 'Client Satisfaction' },
-  { value: 5, suffix: 'x', label: 'Average ROAS' },
-  { value: 24, suffix: '/7', label: 'Support' },
+  { value: 55, suffix: '+', label: 'Projects delivered', note: 'web, campaigns, branding' },
+  { value: 98, suffix: '%', label: 'Client satisfaction', note: 'clear communication loops' },
+  { value: 5, suffix: 'x', label: 'ROAS ambition', note: 'tracked campaign targets' },
+  { value: 24, suffix: '/7', label: 'Growth visibility', note: 'dashboards and support' },
 ];
 
-function AnimatedCounter({
-  value,
-  suffix,
-  inView,
-}: {
-  value: number;
-  suffix: string;
-  inView: boolean;
-}) {
+const process = ['Audit', 'Position', 'Launch', 'Measure', 'Scale'];
+
+function AnimatedCounter({ value, suffix, inView }: { value: number; suffix: string; inView: boolean }) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
     if (!inView) return;
     const obj = { val: 0 };
-    gsap.to(obj, {
-      val: value,
-      duration: 2,
-      ease: 'power2.out',
-      onUpdate: () => setCount(Math.round(obj.val)),
-    });
+    gsap.to(obj, { val: value, duration: 1.8, ease: 'power3.out', onUpdate: () => setCount(Math.round(obj.val)) });
   }, [inView, value]);
 
-  return (
-    <span>
-      {count}
-      {suffix}
-    </span>
-  );
+  return <span>{count}{suffix}</span>;
 }
 
 export function WhyChooseSection() {
   const ref = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
   useGSAP(
     () => {
-      if (!ref.current) return;
-      const heading = headingRef.current;
-      const cards = cardsRef.current?.children;
-
-      const st = ScrollTrigger.create({
-        trigger: ref.current,
-        start: 'top 80%',
-        onEnter: () => setInView(true),
-      });
-
-      if (heading) {
-        gsap.fromTo(
-          heading,
-          { opacity: 0, y: 40 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: 'power3.out',
-            scrollTrigger: { trigger: heading, start: 'top 85%', toggleActions: 'play none none none' },
-          }
-        );
-      }
-      if (cards?.length) {
-        gsap.fromTo(
-          cards,
-          { opacity: 0, scale: 0.92 },
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 0.7,
-            stagger: 0.1,
-            ease: 'back.out(1.2)',
-            scrollTrigger: { trigger: cardsRef.current, start: 'top 88%', toggleActions: 'play none none none' },
-          }
-        );
+      const st = ScrollTrigger.create({ trigger: ref.current, start: 'top 75%', onEnter: () => setInView(true) });
+      const items = ref.current?.querySelectorAll('.why-reveal');
+      if (items?.length) {
+        gsap.fromTo(items, { opacity: 0, y: 40 }, {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          stagger: 0.08,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: ref.current, start: 'top 75%', toggleActions: 'play none none none' },
+        });
       }
       return () => st.kill();
     },
@@ -94,43 +50,39 @@ export function WhyChooseSection() {
   );
 
   return (
-    <section
-      id="why-us"
-      ref={ref}
-      className="relative py-24 overflow-hidden tech-grid noise"
-      aria-labelledby="why-heading"
-    >
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-950/5 to-transparent" />
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={headingRef} className="text-center mb-16">
-          <h2
-            id="why-heading"
-            className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold mb-4"
-          >
-            Why Choose <span className="gradient-text">Mavix</span>
+    <section id="why-us" ref={ref} className="relative overflow-hidden py-28 tech-grid noise" aria-labelledby="why-heading">
+      <div className="absolute right-0 top-10 h-96 w-96 rounded-full bg-amber-300/10 blur-[110px]" />
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="why-reveal mx-auto mb-14 max-w-3xl text-center">
+          <p className="mb-4 text-sm font-black uppercase tracking-[0.34em] text-cyan-200">Why Mavix</p>
+          <h2 id="why-heading" className="font-heading text-3xl font-extrabold leading-tight tracking-[-0.04em] sm:text-4xl md:text-5xl">
+            Your website should feel like <span className="hot-gradient-text">proof</span>, not a brochure.
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            Trusted by brands across Sri Lanka. Numbers that speak—experience that delivers.
-          </p>
         </div>
 
-        <div ref={cardsRef} className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((stat) => (
-            <TiltCard key={stat.label} maxRotation={4}>
-              <div className="glass rounded-2xl p-8 text-center hover:border-cyan-500/30 transition-colors h-full">
-                <p className="font-heading text-4xl md:text-5xl font-bold gradient-text mb-2">
-                  <AnimatedCounter
-                    value={stat.value}
-                    suffix={stat.suffix}
-                    inView={inView}
-                  />
-                </p>
-                <p className="text-gray-400 text-sm font-medium">{stat.label}</p>
-              </div>
-            </TiltCard>
+            <article key={stat.label} className="why-reveal premium-card rounded-[2rem] p-6 text-center">
+              <p className="gradient-text text-3xl font-extrabold md:text-4xl"><AnimatedCounter value={stat.value} suffix={stat.suffix} inView={inView} /></p>
+              <h3 className="mt-3 text-base font-black text-white">{stat.label}</h3>
+              <p className="mt-2 text-sm text-slate-400">{stat.note}</p>
+            </article>
           ))}
+        </div>
+
+        <div className="why-reveal mt-14 rounded-[2rem] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            {process.map((step, index) => (
+              <div key={step} className="flex flex-1 items-center gap-4">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-cyan-300 text-sm font-black text-slate-950">{index + 1}</span>
+                <span className="font-black uppercase tracking-[0.18em] text-white/80">{step}</span>
+                {index < process.length - 1 ? <span className="hidden h-px flex-1 bg-gradient-to-r from-cyan-200/50 to-transparent md:block" /> : null}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
   );
 }
+
